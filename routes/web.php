@@ -168,8 +168,6 @@ Route::get('/diagnostics/uahgb', function () {
     return view('/admin-pages/diagnostics/uahgb');
 })->middleware(['auth', 'verified'])->name('diagnostics.uahgb');
 
-
-//Route::post('/diagnostics/search', [PatientSearchController::class, 'store']);
 Route::post('/diagnostics/search', [DiagnosticsController::class, 'search']);
 
 

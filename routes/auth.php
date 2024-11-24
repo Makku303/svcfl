@@ -20,35 +20,14 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    //Route::post('/diagnostics/register', [DiagnosticsController::class, 'store'])->name('diagnostics.express');
-
-    //Route::get('lab-results', [RegisteredUserController::class, 'create'])
-               // ->name('lab-results');
-
-    //Route::post('lab-results', [RegisteredUserController::class, 'store']);
-
     Route::post('express-diagnostics', [DiagnosticsController::class, 'create'])
                 ->name('express-diagnostics');
 
     Route::post('express-diagnostics', [DiagnosticsController::class, 'store'])
                 ->name('express-diagnostics');
 
-    // Route::post('packages', [PackagesController::class, 'create'])
-    //            ->name('packages');
-               
-    // Route::get('packages', [DiagnosticsController::class, 'create'])
-    //            ->name('packages');
-
     Route::get('/express-diagnostics', [DiagnosticsController::class, 'packagesList'])
                 ->name('packages');
-
-    // Route::post('packages', [PackagesController::class, 'store'])
-    //            ->name('packages');
-               
-   // Route::post('ua-results', [RegisteredUserController::class, 'create'])
-   //             ->name('ua-results');
-
- //   Route::get('ua-results', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');

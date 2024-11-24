@@ -129,6 +129,7 @@
             // Handle the server response here
             $('#name').val(data[0].name);
             $('#lname').val(data[0].lname);
+            $('#role').val(data[0].role);
             $('#email').val(data[0].email);
         });
     }

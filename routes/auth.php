@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +25,8 @@ Route::middleware('guest')->group(function () {
 
     Route::post('express-diagnostics', [DiagnosticsController::class, 'store'])
                 ->name('express-diagnostics');
+    
+    Route::post('/admin-pages/diagnostics/bloodtype', [ResultsController::class, 'store'])->name('/admin-pages/diagnostics/bloodtype');
 
     Route::get('/express-diagnostics', [DiagnosticsController::class, 'packagesList'])
                 ->name('packages');

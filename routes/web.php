@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiagnosticsController;
+use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\PatientSearchController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,6 @@ Route::get('/', function () {
 Route::get('/express-diagnostics', function () {
     return view('express-diagnostics');
 })->name('express-diagnostics');
-
-Route::post('/express-diagnostics', [DiagnosticsController::class, 'store'])->name('diagnostics.express');
  
 Route::get('/lab-results', function () {
     return view('/client-pages/lab-results');
@@ -168,7 +167,13 @@ Route::get('/diagnostics/uahgb', function () {
     return view('/admin-pages/diagnostics/uahgb');
 })->middleware(['auth', 'verified'])->name('diagnostics.uahgb');
 
+
+Route::post('/express-diagnostics', [DiagnosticsController::class, 'store'])->name('diagnostics.express');
+
+//Route::post('/diagnostics/search', [PatientSearchController::class, 'store']);
 Route::post('/diagnostics/search', [DiagnosticsController::class, 'search']);
+
+Route::post('/admin-pages/diagnostics/bloodtype', [ResultsController::class, 'store'])->name('/admin-pages/diagnostics/bloodtype');
 
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 <x-app-layout>
-        <form class="row g-3" method="POST" action="{{ route('admin-pages/diagnostics/bloodtype') }}">
+        <form class="row g-3" method="POST" action="{{ route('/diagnostics/bloodtype') }}">
             <div class="bg-white mb-2 dark:bg-gray-800 relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div class="mx-2 my-2">
                     <h4 class="text-center text-2xl font-bold dark:text-white mx-auto">Search Patient</h4>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="relative z-0 mb-5 group col-span-3">
                             <label for="dateTimeRequested" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATE & TIME REQUESTED</label>
-                            <input type="date" id="dateTimeRequested" name=" " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled />
+                            <input type="datetime-local" id="dateTimeRequested" name=" " class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled />
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     $('#reqphysician').val(response[0].reqphysician);
                     $('#dateTimeRequested').val(response[0].updated_at);
 
-                    console.log(response);
+                    console.log("log response" + JSON.stringify(response));
                 }
             });
     }

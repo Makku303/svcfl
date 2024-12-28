@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <!-- <script>
+        
+        <script>
         function setCookie(cname,cvalue,exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -41,7 +42,7 @@
         // }
         }
         </script>
-      <meta charset="utf-8"> -->
+      <meta charset="utf-8">
       <title>SVCFL</title>
       <meta content="width=device-width, initial-scale=1.0" name="viewport">
       <meta content="" name="keywords">
@@ -72,7 +73,6 @@
 
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css">
 
-      
     </head>
     <body >
       <!-- Spinner Start -->
@@ -202,62 +202,59 @@
       @include('layouts.carousel')
       <!-- Carousel End -->
 
-       <!-- Features Start -->
- <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-0 feature-row d-flex">
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <!-- <div id="reader" width="600px"></div> -->
-                <a href="{{ url('express-diagnostics') }}">
-                    <div class="feature-item border h-100 p-5">
-                        <div class="icon-box-primary mb-4 ">
-                            <i class="bi bi-heart-pulse "></i> 
+    <!-- Features Start -->
+    <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row g-0 feature-row d-flex">
+                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                    <!-- <div id="reader" width="600px"></div> -->
+                    <a href="{{ url('express-diagnostics') }}">
+                        <div class="feature-item border h-100 p-5">
+                            <div class="icon-box-primary mb-4 ">
+                                <i class="bi bi-heart-pulse "></i> 
+                            </div>
+                            <h5 class="mb-3 mt-3">Express Diagnostics</h5> 
+                            <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
                         </div>
-                        <h5 class="mb-3 mt-3">Express Diagnostics</h5> 
-                        <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
+                    </a>
                     </div>
-                </a>
-                </div>
-               
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                <a href="lab-results">
-                    <div class="feature-item border h-100 p-5">
-                        <div class="icon-box-primary mb-4">
-                            <i class="bi bi-clipboard-pulse"></i>
+                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                    <a href="lab-results">
+                        <div class="feature-item border h-100 p-5">
+                            <div class="icon-box-primary mb-4">
+                                <i class="bi bi-clipboard-pulse"></i>
+                            </div>
+                            <h5 class="mb-3">Express Lab Results</h5>
+                            <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
                         </div>
-                        <h5 class="mb-3">Express Lab Results</h5>
-                        <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
+                    </a>
                     </div>
-                </a>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                <a href="/company-services">
-                    <div class="feature-item border h-100 p-5">
-                        <div class="icon-box-primary mb-4">
-                            <i class="bi bi-building-fill-gear text-primary"></i>
+                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                    <a href="/company-services">
+                        <div class="feature-item border h-100 p-5">
+                            <div class="icon-box-primary mb-4">
+                                <i class="bi bi-building-fill-gear text-primary"></i>
+                            </div>
+                            <h5 class="mb-3">Company Services</h5>
+                            <!-- <p class="mb-0 text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
                         </div>
-                        <h5 class="mb-3">Company Services</h5>
-                        <!-- <p class="mb-0 text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
+                    </a>
                     </div>
-                </a>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                <a href="/home-service">
-                    <div class="feature-item border h-100 p-5">
-                        <div class="icon-box-primary mb-4">
-                                <i class="bi bi-house-gear-fill text-primary"></i><i class="bi bi-virus2"></i>
+                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                    <a href="/home-service">
+                        <div class="feature-item border h-100 p-5">
+                            <div class="icon-box-primary mb-4">
+                                    <i class="bi bi-house-gear-fill text-primary"></i><i class="bi bi-virus2"></i>
+                            </div>
+                            <h5 class="mb-3">Home Service</h5>
+                            <!-- <p class="mb-0 text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
                         </div>
-                        <h5 class="mb-3">Home Service</h5>
-                        <!-- <p class="mb-0 text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p> -->
+                    </a>
                     </div>
-                </a>
                 </div>
             </div>
-        </div>
-</div>
-<!-- Features End -->
-       
-    
+    </div>
+    <!-- Features End -->
 
       <!-- About Start -->
       @include('layouts.about')
@@ -306,29 +303,26 @@
         </button>
     </div>
     <!-- END Bootstrap-Cookie-Alert -->
-
-
-
        
-      <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-      <!-- JavaScript Libraries -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-      <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-      <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
-      <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
-      <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-      <!-- include the library -->
-      <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-      <!-- include the library - cookie Alert! -->
-      <script src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <!-- include the library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- include the library - cookie Alert! -->
+    <script src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
 
-      <!-- Template Javascript -->
-      <script src="{{ asset('js/main.js') }}"></script>
-      <script src="{{ asset('js/dark-mode.js')}}"></script>
+    <!-- Template Javascript -->
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/dark-mode.js')}}"></script>
     </body>
     <script>
        window.addEventListener("cookieAlertAccept", function() {

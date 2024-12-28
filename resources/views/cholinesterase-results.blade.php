@@ -40,8 +40,8 @@
                 <input type="date" class="form-control" id="dateTimeReq">
             </div>
             <div class="col-md-3">
-                <label for="dateTimePerf" class="form-label">DATE & TIME PERFORMED</label>
-                <input type="date" class="form-control" id="dateTimePerf">
+                    <label for="dateTimePerf" class="form-label">DATE & TIME PERFORMED</label>
+                    <input type="date" class="form-control" id="dateTimePerf">
             </div>
             <div class="col-md-3">
                 <label for="dateTimeVal" class="form-label">DATE & TIME VALIDATED</label>

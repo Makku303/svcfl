@@ -93,30 +93,30 @@
         </form>
 </x-app-layout>
 
-<script>
-    function getInfo() {
-        var data = {
-            id : $('#search_req_no').val(),
-            name : $('#search_name').val()
-        };
+    <script>
+        function getInfo() {
+            var data = {
+                id : $('#search_req_no').val(),
+                name : $('#search_name').val()
+            };
 
-        console.log(data);
-        $.ajax({
-                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: '/diagnostics/search',
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    // Handle the response (e.g., update UI)
-                    $('#requestNo').val(response[0].id);
-                    $('#patientName').val(response[0].name);
-                    $('#age').val(response[0].age);
-                    $('#gender').val(response[0].gender);
-                    $('#address').val(response[0].address);
-                    $('#reqphysician').val(response[0].reqphysician);
-                    $('#dateTimeRequested').val(response[0].updated_at);
+            console.log(data);
+            $.ajax({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/diagnostics/search',
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        // Handle the response (e.g., update UI)
+                        $('#requestNo').val(response[0].id);
+                        $('#patientName').val(response[0].name);
+                        $('#age').val(response[0].age);
+                        $('#gender').val(response[0].gender);
+                        $('#address').val(response[0].address);
+                        $('#reqphysician').val(response[0].reqphysician);
+                        $('#dateTimeRequested').val(response[0].updated_at);
 
                     // console.log("log response" + JSON.stringify(response));
                 }

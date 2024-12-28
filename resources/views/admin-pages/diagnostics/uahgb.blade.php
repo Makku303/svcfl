@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <div class="bg-white mb-2 dark:bg-gray-800 relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="mx-2 my-2">
             <h4 class="text-center text-2xl font-bold dark:text-white mx-auto">Search Patient</h4>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="relative z-0 mb-5 group col-span-3">
                     <label for="dt_performed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATE & TIME PERFORMED</label>
-                    <input type="datetime-local" id="dt_performed" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                    <input type="datetime-local" id="dateTimePerf" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
                 <div class="relative z-0 mb-5 group col-span-3">
                     <label for="dt_validated" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATE & TIME VALIDATED</label>
@@ -126,7 +126,7 @@
             </div>
         </form>    
     </div>
-</x-app-layout>
+</x-admin-layout>
 
 <script>
     function getInfo() {

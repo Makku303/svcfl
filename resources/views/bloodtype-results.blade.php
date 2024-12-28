@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-admin-layout>
         <div class="container">
             <form class="row g-3 needs-validation" novalidate method="GET" action="{{ route('bloodtype-results') }}">
                 @csrf
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="dateTimeReq" class="form-label">DATE & TIME REQUESTED</label>
-                    <input type="date" class="form-control" id="dateTimeReq">
+                    <input type="date" class="form-control" id="created_at">
                 </div>
                 <div class="col-md-3">
                     <label for="dateTimePerf" class="form-label">DATE & TIME PERFORMED</label>
@@ -67,5 +67,5 @@
                 
             </form>
         </div>
-</x-client-layout>
+</x-admin-layout>
 

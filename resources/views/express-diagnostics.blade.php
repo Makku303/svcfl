@@ -46,13 +46,12 @@
             </div>
 
             <h3 class=" font-bold text-xl mb-3" >Laboratory Requests</h3>
-
             <ul class="nav nav-fill nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="fill-tab-0" data-bs-toggle="tab" href="#fill-tabpanel-0" role="tab" aria-controls="fill-tabpanel-0" aria-selected="true"> Individual Test </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="fill-tab-1" data-bs-toggle="tab" href="#fill-tabpanel-1" role="tab" aria-controls="fill-tabpanel-1" aria-selected="false"> Package Test </a>
+                    <a class="nav-link " id="fill-tab-1" data-bs-toggle="tab" href="#fill-tabpanel-1" role="tab" aria-controls="fill-tabpanel-1" aria-selected="false"> Package Test </a>
                 </li>
             </ul>
             <div class="tab-content pt-5" id="tab-content">
@@ -117,33 +116,32 @@
                     <option selected></option>
                         
                         @foreach($packages as $package)
-                            <option value="{{ $package->id }}">{{ $package->packageName }}</option>
+                            <option value="{{ $package->packageName }}">{{ $package->packageName }}</option>
                         
                         @endforeach
                     </select>
                     
                     <select id="package2" class="form-select mt-3" aria-label="Default select example" name="package2">
                     <option selected></option>
-                            @foreach($packages as $package)
-                            <option value="{{ $package->id }}">{{ $package->packageName }}</option>
-                            @endforeach 
+                        @foreach($packages as $package)
+                        <option value="{{ $package->packageName }}">{{ $package->packageName }}</option>
+                        @endforeach 
                     </select>
                     
                     <select id="package3" class="form-select mt-3" aria-label="Default select example" name="package3">
                     <option selected></option>
-                            @foreach($packages as $package)
-                            <option value="{{ $package->id }}">{{ $package->packageName }}</option>
-                            @endforeach 
+                        @foreach($packages as $package)
+                        <option value="{{ $package->packageName }}">{{ $package->packageName }}</option>
+                        @endforeach 
                     </select>
     
                     <select id="package4" class="form-select mt-3" aria-label="Default select example" name="package4">
                     <option selected></option>
-                            @foreach($packages as $package)
-                            <option value="{{ $package->id }}">{{ $package->packageName }}</option>
-                            @endforeach 
-                        </select>
+                        @foreach($packages as $package)
+                        <option value="{{ $package->packageName }}">{{ $package->packageName }}</option>
+                        @endforeach 
+                    </select>
                 </div>
-                <!-- <input type="submit" class="btn btn-primary btn-lg my-3" name="submit" value="Submit"> -->
             </div>
             <input type="submit" class="btn btn-primary btn-lg my-3" name="submit" value="Submit">
         </form>

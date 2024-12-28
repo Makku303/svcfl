@@ -173,7 +173,7 @@ Route::post('/express-diagnostics', [DiagnosticsController::class, 'store'])->na
 //Route::post('/diagnostics/search', [PatientSearchController::class, 'store']);
 Route::post('/diagnostics/search', [DiagnosticsController::class, 'search']);
 
-Route::post('/admin-pages/diagnostics/bloodtype', [ResultsController::class, 'store'])->name('/admin-pages/diagnostics/bloodtype');
+Route::post('/admin-pages/diagnostics/bloodtype', [ResultsController::class, 'store'])->name('results');
 
 
 require __DIR__.'/auth.php';

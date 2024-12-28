@@ -36,9 +36,9 @@
                 <input type="text" class="form-control" id="rDoctor">
             </div>
             <div class="col-md-3">
-                <label for="dateTimeReq" class="form-label">DATE & TIME REQUESTED</label>
-                <input type="date" class="form-control" id="dateTimeReq">
-            </div>
+                    <label for="dateTimePerf" class="form-label">DATE & TIME PERFORMED</label>
+                    <input type="date" class="form-control" id="dateTimePerf">
+                </div>
             <div class="col-md-3">
                 <label for="dateTimePerf" class="form-label">DATE & TIME PERFORMED</label>
                 <input type="date" class="form-control" id="dateTimePerf">

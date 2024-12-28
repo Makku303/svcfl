@@ -7,9 +7,9 @@ use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Http\Controllers\Packages;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -65,16 +65,11 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request)
     {
-        //
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user = User::where('email', $request->email)->update(['role' => $request->role, 'lname'=>$request->lname]);
 
-        $request->user()->save();
-
-        return Redirect::route('user.list');
+        return redirect(route('user.list', absolute: false));
     }
 
     /**

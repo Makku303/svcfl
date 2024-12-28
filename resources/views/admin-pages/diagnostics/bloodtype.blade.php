@@ -1,5 +1,7 @@
 <x-app-layout>
         <form class="row g-3" method="POST" action="{{ route('/diagnostics/bloodtype') }}">
+            @csrf
+            
             <div class="bg-white mb-2 dark:bg-gray-800 relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div class="mx-2 my-2">
                     <h4 class="text-center text-2xl font-bold dark:text-white mx-auto">Search Patient</h4>
@@ -116,7 +118,7 @@
                     $('#reqphysician').val(response[0].reqphysician);
                     $('#dateTimeRequested').val(response[0].updated_at);
 
-                    console.log("log response" + JSON.stringify(response));
+                    // console.log("log response" + JSON.stringify(response));
                 }
             });
     }

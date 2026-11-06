@@ -46,6 +46,18 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "check:delivery": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan key:generate --ansi --force",
+            "@php artisan migrate --force --ansi",
+            "@php artisan test --ansi"
+        ],
+        "check:ci": [
+            "@php artisan config:clear --ansi",
+            "vendor/bin/pint --test",
+            "@php artisan test --ansi"
         ]
     },
     "extra": {

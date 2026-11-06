@@ -1,0 +1,55 @@
+name: Laravel delivery checks
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  delivery-checks:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: testing
+      APP_KEY: base64:abcd1234abcd1234abcd1234abcd1234abcd1234=
+      DB_CONNECTION: sqlite
+      DB_DATABASE: database/database.sqlite
+      CACHE_STORE: array
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: array
+      MAIL_MAILER: array
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, sqlite3, pdo_sqlite, dom, fileinfo, zip
+          coverage: none
+
+      - name: Install Composer dependencies
+        working-directory: svcl_backup_20261106
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare environment
+        working-directory: svcl_backup_20261106
+        run: |
+          cp .env.example .env
+          touch database/database.sqlite
+          php artisan key:generate --force
+
+      - name: Run migrations
+        working-directory: svcl_backup_20261106
+        run: php artisan migrate --force
+
+      - name: Run formatting validation
+        working-directory: svcl_backup_20261106
+        run: vendor/bin/pint --test
+
+      - name: Run Laravel tests
+        working-directory: svcl_backup_20261106
+        run: php artisan test --no-coverage

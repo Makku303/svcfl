@@ -1,38 +1,39 @@
 # Project Quick Start
 
-This guide covers local setup and a practical multi-agent workflow for starting a development task. The repository documentation is at the root; the Laravel application is in `svcl_backup_20261106`.
+This guide covers setup for the new application and a practical multi-agent workflow for starting a development task. `svcl_backup_20261106` is a legacy/reference snapshot only: do not run, modify, or treat it as the new application's implementation. Consult it only when a task explicitly calls for reference to the old system. The architecture and planning documents at the repository root describe the intended new LIS.
 
 ## 1. Configure the project
 
 ### Prerequisites
 
-- PHP 8.2 or newer and Composer
+- PHP 8.2 or newer and Composer (the target architecture is Laravel 11)
 - Node.js and npm
-- MySQL, or another database configured for this Laravel app
+- A database supported by Laravel, selected for the new application
 - Git
 
-Open the repository root in VS Code so both the app and its documentation and agent skills are available. Run application commands from the Laravel application directory:
+Open the repository root in VS Code. Create the new Laravel application in its agreed, empty application directory; do not scaffold into or reuse `svcl_backup_20261106`. For example, from the repository root:
 
 ```powershell
-Set-Location .\svcl_backup_20261106
+composer create-project laravel/laravel new-lis-app "^11.0"
+Set-Location .\new-lis-app
 ```
 
-Install dependencies:
+If the team chooses a different application directory, replace `new-lis-app` consistently below. Scaffold the application once; on subsequent setup, work in that directory and install dependencies with:
 
 ```powershell
 composer install
 npm ci
 ```
 
-Create a local environment file only if you do not already have one. Do not overwrite an existing `.env`:
+The Laravel scaffold creates the environment template. Create a local environment file only if it does not already exist. Do not overwrite an existing `.env`:
 
 ```powershell
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 ```
 
-Edit `.env` for your local environment. The example uses MySQL with database `svfcl`; create that database if needed and set `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` to match your local server. Keep credentials and other secrets in `.env`, never in tracked files.
+Configure `.env` for the chosen local database and other environment-specific settings. Create the database if needed. Keep credentials and other secrets in `.env`, never in tracked files.
 
-For a new local environment with an empty `APP_KEY`, generate the application key, then apply migrations:
+For a new local environment with an empty `APP_KEY`, generate the application key. Apply migrations after the new application's migrations are ready:
 
 ```powershell
 php artisan key:generate
@@ -43,19 +44,19 @@ If migration fails, keep the full error, check the selected database and migrati
 
 ### Run the app
 
-In one terminal, start Laravel:
+From the new application's directory, in one terminal start Laravel:
 
 ```powershell
 php artisan serve
 ```
 
-In another terminal, from `svcl_backup_20261106`, start Vite:
+In another terminal, from that same directory, start Vite:
 
 ```powershell
 npm run dev
 ```
 
-Open the URL printed by `php artisan serve`. To check the existing automated test suite or create a production asset build, run:
+Open the URL printed by `php artisan serve`. To run the new application's automated tests or create a production asset build, run:
 
 ```powershell
 php artisan test
@@ -68,13 +69,13 @@ Run the checks relevant to your change before handing it off. Backend-only chang
 
 The role-specific skills are in `.github/skills/`. Read these project references before splitting work:
 
-- [Architecture](./ARCHITECTURE.md) — target boundaries and workflow invariants
-- [Development plan](./DEVELOPMENT_PLAN.md) — delivery sequence, task packages, and acceptance criteria
-- [Multi-agent skills](./MULTI_AGENT_SKILLS.md) — role responsibilities and shared expectations
+- [Architecture](./ARCHITECTURE.md) - target boundaries and workflow invariants
+- [Development plan](./DEVELOPMENT_PLAN.md) - delivery sequence, task packages, and acceptance criteria
+- [Multi-agent skills](./MULTI_AGENT_SKILLS.md) - role responsibilities and shared expectations
 
 Use the following workflow when starting a task:
 
-1. **Establish the baseline.** From the repository root, check `git status --short` and the current branch. Inspect the relevant implementation and tests; architecture and plan documents describe the target, not proof that a feature already exists. Do not overwrite or discard existing work.
+1. **Establish the baseline.** From the repository root, check `git status --short` and the current branch. Identify the new application's root, then inspect its relevant implementation and tests; architecture and plan documents describe the target, not proof that a feature already exists. Treat `svcl_backup_20261106` as read-only reference material, not the implementation baseline. Do not overwrite or discard existing work.
 2. **Have a lead define the task.** State the user outcome, current behavior, scope, constraints, and acceptance criteria. The lead checks the architecture and development plan, identifies dependencies, and decides whether parallel work is worthwhile.
 3. **Split only independent work.** Give each agent a bounded deliverable, an owner/role, allowed files or modules, dependencies, interface assumptions, and testable acceptance criteria. Name shared models, workflow states, authorization rules, and service interfaces that must be agreed with the lead first.
 4. **Choose roles that match the work.** Use only the roles needed: lead/architecture for decomposition and integration; data-model, workflow/backend, security/authorization, frontend/workflow UX, QA/test, operations/integration, or clinical workflow reviewer. The role references are guidance, not a requirement to launch every role for every task.

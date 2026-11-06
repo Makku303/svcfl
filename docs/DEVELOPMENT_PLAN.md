@@ -576,16 +576,4 @@ Role names and skill expectations are defined in [MULTI_AGENT_SKILLS.md](./MULTI
 
 ## 8. Open decisions and owners
 
-Track these decisions with an accountable clinic or technical owner before the affected stories are considered ready:
-
-| Decision | Owner to confirm | Blocks or affects |
-|---|---|---|
-| Approved patient identifiers, duplicate-review and merge rules | Clinic operations / privacy owner | B1, C1, migration |
-| Whether payment completion is required before collection; payment methods, partial payments, refunds, and reversals | Clinic finance / operations | C4, release operations |
-| Visit, order, specimen, payment, and result states and permitted transitions | Laboratory lead / clinic operations | B2, C3, D1–D3, E1–E4 |
-| Reference ranges, critical thresholds, review criteria, reviewer eligibility, and separation of duties | Laboratory lead | C2, E1–E4 |
-| Result handover identity verification, delivery channels, and amendment approvals | Laboratory lead / privacy owner | E3–E4, G2 |
-| Data minimization, retention, access review, and local compliance requirements | Privacy/compliance owner | B1, B3, F2–F3, production readiness |
-| Expected volume, service targets, recovery objectives, backup schedule, and hosting model | Technical/operations lead | A2, F2–F3, production readiness |
-| Legacy migration mapping, cutover, rollback, and retirement of legacy result entry | Technical lead / laboratory lead | B3, release readiness |
-| Instrument protocol and external provider selection | Laboratory/technical lead | G1–G2 |
+The [A1-T2 policy and service decision register](./A1-T2-POLICY-AND-SERVICE-DECISION-REGISTER.md) is the canonical record of each decision, its status, accountable owner role, affected stories, and approval evidence. An affected story is not ready while any release-blocking decision remains unresolved. Every unresolved decision must retain an accountable owner; do not infer clinic policy from the target architecture.

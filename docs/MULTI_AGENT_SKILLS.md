@@ -31,3 +31,5 @@ Every agent should:
 A practical starting point is one lead agent with a small number of focused implementation agents. Have QA review the highest-risk workflows, and involve the clinical workflow reviewer when requirements depend on laboratory or clinic policy. Keep security and authorization requirements in every relevant task rather than treating them as a final-only review.
 
 Prioritize cross-agent review of result authorization, released-result immutability and amendments, audit history, retry safety, and patient-data protection. Clinic-specific reference ranges, critical thresholds, retention periods, and authorization rules must be confirmed by the appropriate clinic stakeholders.
+
+For work packages in section 5 of the development plan, use the [development-plan orchestrator skill](../.github/skills/development-plan-orchestrator/SKILL.md) to delegate according to each row's **Accountable skill role** assignments and acceptance criteria.

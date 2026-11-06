@@ -75,6 +75,48 @@ flowchart LR
 
 Modules should be separated by Laravel namespaces and service boundaries while sharing one application and relational database initially. Controllers should handle HTTP concerns; policies authorize access; application services coordinate multi-record workflows and transactions; Eloquent models represent persisted entities. Do not put workflow transitions or result-release rules only in controllers or view code.
 
+### Module ownership and boundaries
+
+These are the target ownership boundaries for the new application. The repository does not yet contain that application; `svcl_backup_20261106` is a legacy reference snapshot and is not the implementation baseline. The role in the last column is accountable for engineering coordination of the module, not for approving clinic policy or acting as a named individual owner.
+
+| Module | Owns | Accountable engineering role |
+|---|---|---|
+| Identity and access (`IdentityAccess`) | Staff accounts, shared role/permission definitions, and authentication/session controls. Patient identity and clinical workflow records belong to their respective modules. | Security / authorization |
+| Patient registry (`PatientRegistry`) | Patient demographics, approved identity matching, duplicate review, and patient merge history. It does not own visits or orders. | Workflow / backend |
+| Visit and queue (`Visits`) | Walk-in encounters, visit numbers, queue stages, and visit status. It references patients but does not own their demographics or order/payment status. | Workflow / backend |
+| Catalog and pricing (`Catalog`) | Examination and package definitions, components, preparation/specimen requirements, approved result metadata, and effective prices. It does not rewrite catalog snapshots already recorded on orders. | Data-model |
+| Orders and billing (`Orders`) | Order selections and resolved work items, order-time catalog/price snapshots, charge lines, payments, and receipts. Laboratory status remains with the owning workflow modules. | Workflow / backend |
+| Specimen management (`Specimens`) | Specimen accessions and barcodes, collection/receipt/rejection events, and recollection links. It references orders and work items but does not change them. | Workflow / backend |
+| Laboratory workflow and results (`Results`) | Worklists derived from workflow state, result entry/import, validation, review, authorization, amendments, and the result's clinical lifecycle, including eligibility for release. | Workflow / backend |
+| Result communication (`Delivery`) | Report snapshots, delivery channels and outcomes, recipient identity checks, and critical-result follow-up. It acts only on eligible, authorized results and cannot edit clinical result values or authorize them. | Operations / integration |
+| Operations and quality (`Operations`) | Audit-event infrastructure, operational reporting, quality-control and reagent records, downtime reconciliation, and runtime/backup operations. It does not own the clinical or financial records being audited. | Operations / integration |
+
+Clinic-specific values and permissions remain subject to the approvals recorded in [the policy and service decision register](./A1-T2-POLICY-AND-SERVICE-DECISION-REGISTER.md); module ownership does not resolve those decisions. Data-model, security, QA, and clinical roles should be consulted where their expertise applies. QA remains an independent verification role rather than the owner of application behavior.
+
+### Laravel structure and engineering conventions
+
+Use the standard Laravel application root and default `App\\` PSR-4 mapping. Organize module-owned code under `app/Modules/<Module>/`, using the module names above and creating only the needed subdirectories:
+
+```text
+app/Modules/<Module>/
+  Events/
+  Http/Controllers/
+  Http/Requests/
+  Jobs/
+  Models/
+  Policies/
+  Services/
+```
+
+Keep the route entry points in Laravel's `routes/` directory, module views in `resources/views/modules/<module>/`, and migrations, factories, and seeders in their standard Laravel `database/` directories. A migration is owned by the module whose table it creates or changes, even when it adds a foreign key to another module's table. Keep tests in `tests/Feature/Modules/<Module>/` or `tests/Unit/Modules/<Module>/` according to whether they exercise the Laravel application or isolated logic.
+
+- Use singular StudlyCase Eloquent model names (`Patient`), plural snake_case table names (`patients`), and Laravel's timestamped, descriptive snake_case migration names (`..._create_patients_table.php`, `..._add_status_to_patients_table.php`).
+- Name policies `<Model>Policy`, controllers `<Subject>Controller`, form requests `<Action><Subject>Request`, application services `<Verb><Subject>Service`, jobs `<Verb><Subject>Job`, and domain events as past-tense facts. Spell out names; avoid unexplained abbreviations.
+- Controllers handle HTTP concerns and call application services. Form requests validate input; each module's policies make server-side authorization decisions using shared identity/access capabilities. Application services own use-case transitions, cross-record coordination, and the transaction for a multi-module operation. Models represent persisted entities and their relationships; views render state and never authorize or perform transitions.
+- A module may reference another module's records by stable identifiers and agreed contracts, but only the owning module may mutate its records. Cross-module writes go through the owning module's application interface. When one operation spans modules, its initiating use-case service coordinates the transaction; agree on contract or state changes with every affected module before implementation.
+- Keep synchronous calls as the default. Add jobs or events only for a concrete asynchronous or decoupling need; make retried jobs safe and observable. Derive queue/worklist displays from their owning workflow state rather than maintaining competing status copies.
+- Keep result authorization, audit history, and patient-data protections at their owning boundaries. Do not infer clinic rules from code structure; unresolved policy decisions remain blocked pending the named stakeholder's approval.
+
 ## 5. Primary walk-in workflow
 
 1. **Check in:** search for an existing patient using approved identifiers. Review possible matches before creating a new record. Create a visit and display/print its visit number.

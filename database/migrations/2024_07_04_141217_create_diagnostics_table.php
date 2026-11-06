@@ -11,19 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diagnostics', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->integer('age');
-            $table->string('gender');
-            $table->string('contact');
-            $table->string('address');
-            $table->string('email');
-            $table->string('reqphysician');
-            $table->timestamps();
-        });
-
-
     }
 
     /**
@@ -31,6 +18,5 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
     }
 };

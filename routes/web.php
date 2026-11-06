@@ -13,10 +13,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/express-diagnostics', function () {
-    return view('express-diagnostics');
-})->name('express-diagnostics');
- 
+Route::get('/express-diagnostics', [DiagnosticsController::class, 'packagesList'])
+    ->name('express-diagnostics');
+
 Route::get('/lab-results', function () {
     return view('/client-pages/lab-results');
 })->name('lab-results');
@@ -176,4 +175,4 @@ Route::post('/diagnostics/search', [DiagnosticsController::class, 'search']);
 Route::post('/admin-pages/diagnostics/bloodtype', [ResultsController::class, 'store'])->name('results');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

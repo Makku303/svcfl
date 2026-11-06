@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
         <form class="row g-3" method="POST" action="{{ route('/diagnostics/bloodtype') }}">
             @csrf
             
@@ -74,24 +74,24 @@
                 </div>
             </div>
             <div class="bg-white dark:bg-gray-800 relative overflow-x-auto shadow-md sm:rounded-lg">
-                <form class="mx-2 my-2">
+                <!-- <form class="mx-2 my-2"> -->
                     <h4 class="text-center text-2xl font-bold dark:text-white mx-auto">BLOOD TYPING</h4>
                     <div class="grid md:grid-cols-12 md:gap-4 ">
                         <div class="relative z-0 mb-5 group col-span-3">
                             <label class="text-right block mb-2 text-sm font-medium text-gray-900 dark:text-white">RESULT</label>
                         </div>
                         <div class="relative z-0 mb-5 group col-span-3">
-                            <input type="text" id="bloodtype" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                            <input type="text" name="bloodType" id="bloodtype" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         </div>
                         <div class="relative z-0 mb-5 group col-span-3">
                             <button type="submit" name="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">SAVE</button>
                         </div>
                     
                     </div>
-                </form>
+                <!-- </form> -->
             </div>
         </form>
-</x-app-layout>
+</x-admin-layout>
 
     <script>
         function getInfo() {

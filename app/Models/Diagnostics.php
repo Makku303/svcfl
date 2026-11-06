@@ -17,10 +17,19 @@ class Diagnostics extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'key',
+        'firstName',
+        'lastName',
         'name',
         'age',
         'gender',
         'contact',
+        'houseBuildingNo',
+        'streetName',
+        'barangaySubdivision',
+        'cityMunicipality',
+        'region',
+        'zipCode',
         'address',
         'email',
         'reqphysician',
@@ -28,12 +37,12 @@ class Diagnostics extends Authenticatable
         'package2',
         'package3',
         'package4',
-        'individualTest1', 
-        'individualTest2', 
+        'individualTest1',
+        'individualTest2',
         'individualTest3',
-        'individualTest4', 
-        'individualTest5', 
-        'individualTest6', 
+        'individualTest4',
+        'individualTest5',
+        'individualTest6',
         'individualTest7',
     ];
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\IndivualTestController;
@@ -17,6 +18,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class DiagnosticsController extends Controller
 {
@@ -25,10 +27,9 @@ class DiagnosticsController extends Controller
      */
     public function create(string $id)
     {
-        
-            $diagnostics = DB::insert('insert into * diagnostics where id = ? limit 1', [$id]);
-            return response($diagnostics);
 
+        $diagnostics = DB::insert('insert into * diagnostics where id = ? limit 1', [$id]);
+        return response($diagnostics);
     }
 
     /**
@@ -38,52 +39,117 @@ class DiagnosticsController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-         $selectedIndividualId = $request->input('selectedIndividualId');
-        // $selectedIndividualId = IndividualTest::first()->IndividualId;
-        $usermail = $request->email;
-
-        $diagnostics = Diagnostics::create([
-            'name' => $request->name,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'contact' => $request->contact,
-            'address' => $request->address,
-            'email' => $usermail,
-            'reqphysician' =>$request->reqphysician,
-            'package1' =>$request->package1,
-            'package2' =>$request->package2,
-            'package3' =>$request->package3,
-            'package4' =>$request->package4,
-            'individualTest1' =>$request->individualTest1,
-            'individualTest2' =>$request->individualTest2,
-            'individualTest3' =>$request->individualTest3,
-            'individualTest4' =>$request->individualTest4,
-            'individualTest5' =>$request->individualTest5,
-            'individualTest6' =>$request->individualTest6,
-            'individualTest7' =>$request->individualTest7,
+        $validated = $request->validate([
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
+            'age' => ['required', 'integer', 'min:0'],
+            'gender' => ['required', 'string', 'max:255'],
+            'contact' => ['required', 'string', 'max:255'],
+            'houseBuildingNo' => ['required', 'string', 'max:255'],
+            'streetName' => ['required', 'string', 'max:255'],
+            'barangaySubdivision' => ['required', 'string', 'max:255'],
+            'cityMunicipality' => ['required', 'string', 'max:255'],
+            'region' => ['required', 'string', 'max:255'],
+            'zipCode' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'email', 'max:255'],
+            'reqphysician' => ['required', 'string', 'max:255'],
+            'package1' => ['nullable', 'string', 'max:255'],
+            'package2' => ['nullable', 'string', 'max:255'],
+            'package3' => ['nullable', 'string', 'max:255'],
+            'package4' => ['nullable', 'string', 'max:255'],
+            'individualTest1' => ['nullable', 'string', 'max:255'],
+            'individualTest2' => ['nullable', 'string', 'max:255'],
+            'individualTest3' => ['nullable', 'string', 'max:255'],
+            'individualTest4' => ['nullable', 'string', 'max:255'],
+            'individualTest5' => ['nullable', 'string', 'max:255'],
+            'individualTest6' => ['nullable', 'string', 'max:255'],
+            'individualTest7' => ['nullable', 'string', 'max:255'],
         ]);
-         
-        
-        if (DB::table('users')->where('email', $usermail)->doesntExist()) {
-            $users = User::create([
-                'name' => $request->name,
-                'email' => $usermail
-            ]);
-        }
+
+        $diagnosticFields = [
+            'key',
+            'firstName',
+            'lastName',
+            'name',
+            'age',
+            'gender',
+            'contact',
+            'houseBuildingNo',
+            'streetName',
+            'barangaySubdivision',
+            'cityMunicipality',
+            'region',
+            'zipCode',
+            'address',
+            'email',
+            'reqphysician',
+            'package1',
+            'package2',
+            'package3',
+            'package4',
+            'individualTest1',
+            'individualTest2',
+            'individualTest3',
+            'individualTest4',
+            'individualTest5',
+            'individualTest6',
+            'individualTest7',
+        ];
+
+        DB::transaction(function () use ($validated, $diagnosticFields): void {
+            Diagnostics::create(array_combine(
+                $diagnosticFields,
+                array_map(
+                    fn(string $field): string|int => match ($field) {
+                        'key' => (string) Str::uuid(),
+                        'name' => $validated['firstName'] . ' ' . $validated['lastName'],
+                        'address' => implode(', ', array_filter([
+                            $validated['houseBuildingNo'],
+                            $validated['streetName'],
+                            $validated['barangaySubdivision'],
+                            $validated['cityMunicipality'],
+                            $validated['region'],
+                            $validated['zipCode'],
+                        ])),
+                        default => $validated[$field] ?? '',
+                    },
+                    $diagnosticFields
+                )
+            ));
+
+            if (DB::table('users')->where('email', $validated['email'])->doesntExist()) {
+                DB::table('users')->insert([
+                    'name' => $validated['firstName'] . ' ' . $validated['lastName'],
+                    'email' => $validated['email'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        });
 
         return redirect(route('express-diagnostics', absolute: false))->with('success', 'Sucessfully Saved!');
     }
 
     public function packagesList()
     {
-    
-        $packages = DB::table('packages')->select('id', 'packageName')->get();
-        $individualTest = DB::table('individualtest')->select('id', 'individualTest')->get();
+
+        $packages = DB::table('packages')
+            ->select('id', 'packageName')
+            ->get()
+            ->unique('packageName')
+            ->sortBy('packageName')
+            ->values();
+        $individualTest = DB::table('individualtest')
+            ->select('id', 'individualTest')
+            ->get()
+            ->unique('individualTest')
+            ->sortBy('individualTest')
+            ->values();
 
         return view('express-diagnostics', [
-            'packages'=>$packages, 'individualTest'=>$individualTest
+            'packages' => $packages,
+            'individualTest' => $individualTest
         ]);
-
     }
 
     public function individualTestList()
@@ -91,9 +157,8 @@ class DiagnosticsController extends Controller
         $individualTest = DB::table('individualtest')->select('id', 'individualTest')->get();
 
         return view('express-diagnostics', [
-            'individualTest'=>$individualTest
+            'individualTest' => $individualTest
         ]);
-
     }
 
     /**
@@ -101,25 +166,23 @@ class DiagnosticsController extends Controller
      */
     public function search(Request $request): Response
     {
-        if(!empty($request->id))
-        {
+        if (!empty($request->id)) {
             $id = $request->id;
             $patientInfo = DB::select('select * from diagnostics where id = ? limit 1', [$request->id]);
             return response($patientInfo);
         }
 
-        if(!empty($request->name))
-        {
+        if (!empty($request->name)) {
             $id = $request->id;
             $patientInfo = DB::select('select * from diagnostics where name = ? limit 1', [$request->name]);
             return response($patientInfo);
         }
 
         return response(''); // Return a response
-  
+
     }
 
-     /**
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -133,5 +196,4 @@ class DiagnosticsController extends Controller
         //             $data->update();
         //         }
     }
-
 }
